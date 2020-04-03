@@ -25,22 +25,25 @@ class Movies(db.Model):
     title = db.Column(db.Text)
     year = db.Column(db.String(15))
 
+# 模板上下文处理函数
+@app.context_processor
+def app_all():
+    name = User.query.first().username
+    return dict(name=name)
 
 @app.route('/')
 @app.route('/index/')
 def index():
-    name = User.query.first().username
     movies = Movies.query.filter().order_by(Movies.year.desc())
     len = 0
     for i in movies:
         len += 1
-    return render_template('index.html',name=name,movies=movies,len=len)
+    return render_template('index.html',movies=movies,len=len)
 
 # 处理错误页面/信息函数
 @app.errorhandler(404)
 def error_page(e):        # e--给定一个参数来接受
-    name = User.query.first().username
-    return render_template('404.html',name=name)
+    return render_template('404.html')
 
 # @app.route('/<name>',endpoint='index')
 # def index(name):

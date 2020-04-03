@@ -1,21 +1,5 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ name }}'movielist</title>
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/index.css') }}">
-    <!-- <style>
-    .avatar{
-        width: 40px;
-    }
-    </style> -->
-</head>
-<body>
-    <h2>
-        <img src="{{ url_for('static',filename='img/2861637f91b315b994f83808d5e2ed7.jpg') }}" alt="头像" class='avatar'>
-        {{ name }}'movielist
-    </h2>
+{% extends 'father.html' %}
+{% block father_content %}
     <ul class='movie-list'>
         <li>页面走错了~~~~
             <button>
@@ -23,10 +7,4 @@
             </button>
         </li>
     </ul>
-    <footer>
-        <small>&copy;2020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="#">1903C</a>
-        </small>
-    </footer>
-</body>
-</html>
+{% endblock %}

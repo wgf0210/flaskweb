@@ -1,0 +1,60 @@
+.avatar{
+    width: 40px;
+}
+body{
+    margin: 0 auto;
+    max-width: 600px;
+    font-size: 16px;
+    font-family: 幼圆;
+}
+footer{
+    color: #000;
+    margin-top: 20px;
+    text-align: center;
+    padding: 10px;
+}
+.movie-list{
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 10px;
+    box-shadow: 5px 4px 10px #cddc39ab;
+}
+.movie-list li{
+    padding: 12px 24px;
+    border-bottom:  1px solid #dddddd;
+}
+.movie-list li:hover{
+    background-color: #f8f8f8;
+}
+nav ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgba(152, 231, 74, 0.747);
+}
+nav ul li{
+    float: left;
+}
+nav ul li a{
+    display: block;
+    color: coral;
+    text-align: center;
+    padding: 8px 12px;
+    text-decoration: none;
+}
+nav ul li a:hover{
+    background-color: darkcyan;
+}
+.bott{
+    float:right;
+}
+.baidu{
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    color: black;
+    background-color: #f5c518;
+    border-radius: 5px;
+    padding: 3px 5px;
+}
