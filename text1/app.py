@@ -36,6 +36,12 @@ def index():
         len += 1
     return render_template('index.html',name=name,movies=movies,len=len)
 
+# 处理错误页面/信息函数
+@app.errorhandler(404)
+def error_page(e):        # e--给定一个参数来接受
+    name = User.query.first().username
+    return render_template('404.html',name=name)
+
 # @app.route('/<name>',endpoint='index')
 # def index(name):
 #     print(url_for('index',name='hahaha'))
