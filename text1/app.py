@@ -29,12 +29,6 @@ class Movies(db.Model):
 @app.route('/')
 @app.route('/index/')
 def index():
-    # name = '铁柱妹妹'
-    # movies = [
-    #     {'title':'速度与激情8','year':'2018'},
-    #     {'title':'囧妈','year':'2020'},
-    #     {'title':'烈火英雄','year':'2019'}
-    # ]
     name = User.query.first().username
     movies = Movies.query.filter().order_by(Movies.year.desc())
     len = 0
@@ -55,4 +49,19 @@ def initdb(drop):
         db.drop_all()
     db.create_all()
     click.echo('初始化数据库完成')
-    
+# 自定义命令向空数据库中插入数据    
+@app.cli.command()
+def forge():
+    name = '铁柱妹妹'
+    movies = [
+        {'title':'叶问3','year':'2012'},
+        {'title':'疯狂外星人','year':'2019'},
+        {'title':'大赢家','year':'2020'}
+    ]
+    user = User(username=name)
+    db.session.add(user)
+    for i in movies:
+        movie = Movies(title=i['title'],year=i['year'])
+        db.session.add(movie)
+    db.session.commit()
+    click.echo('数据库插入数据完成')
