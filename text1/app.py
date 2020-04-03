@@ -13,6 +13,7 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(app.root_path,'data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = 'flask_dev'
 
 db = SQLAlchemy(app)
 
@@ -31,14 +32,28 @@ def app_all():
     name = User.query.first().username
     return dict(name=name)
 
-@app.route('/')
-@app.route('/index/')
+@app.route('/',methods=['GET','POST'])
+# @app.route('/index/')
 def index():
     movies = Movies.query.filter().order_by(Movies.year.desc())
-    len = 0
+    lens = 0
     for i in movies:
-        len += 1
-    return render_template('index.html',movies=movies,len=len)
+        lens += 1
+    if request.method == 'POST':
+        # 获取表单数据
+        title = request.form.get('title')
+        year = request.form.get('year')
+        print(year)
+        # 验证数据
+        if title and year and len(year)<15:
+            db.session.add(Movies(title=title,year=year))
+            db.session.commit()
+            flash('添加成功')
+            return redirect(url_for('index'))
+        else:
+            flash('格式错误')
+            return redirect(url_for('index'))
+    return render_template('index.html',movies=movies,lens=len)
 
 # 处理错误页面/信息函数
 @app.errorhandler(404)

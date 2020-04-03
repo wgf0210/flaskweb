@@ -2,6 +2,11 @@
 {% block father_content %}
     <!-- 过滤器 -->
     <p>总共{{ len }}个电影</p>
+    <form method='post'>
+        电影名称：<input type="text" name='title' required autocapitalize="off">
+        上映时间：<input type="text" name='year' required autocapitalize="off">
+        <input type="submit" value="添加" class='sub'>
+    </form>
     <ul class='movie-list'>
         {% for m in movies %}
         <li>{{m.title}} - {{m.year}}

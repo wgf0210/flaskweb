@@ -58,3 +58,17 @@ nav ul li a:hover{
     border-radius: 5px;
     padding: 3px 5px;
 }
+.sub{
+    font-size: 12px;
+    padding: 3px 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.alert{
+    position: relative;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid transparent; /* 透明 */
+    background-color: rgb(245, 228, 245);
+    border-radius: 5px;
+}
