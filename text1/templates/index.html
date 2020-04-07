@@ -2,17 +2,29 @@
 {% block father_content %}
     <!-- 过滤器 -->
     <p>总共{{ len }}个电影</p>
+    {% if current_user.is_authenticated %}
     <form method='post'>
         电影名称：<input type="text" name='title' required autocapitalize="off">
         上映时间：<input type="text" name='year' required autocapitalize="off">
         <input type="submit" value="添加" class='sub'>
     </form>
+    {% endif %}
     <ul class='movie-list'>
         {% for m in movies %}
         <li>{{m.title}} - {{m.year}}
             <span class='bott'>
                 <a class='baidu' href="http://v.baidu.com/v?word={{ m.title }}&ct=301989888&rn=67&pn=0&db=0&s=0&fbl=800&ie=utf-8&oq={{ m.title }}&f=3&rsp=0" target="_blank">百度视频</a>
             </span>
+            {% if current_user.is_authenticated %}
+            <span class='bott'>
+                <a class='baidu' href="{{ url_for('editor',movie_id=m.id) }}" target="_blank">编辑</a>
+            </span>
+            <span class='bott'>
+                <form action="{{ url_for('dele',movie_id=m.id) }}" method="post">
+                    <input type="submit" value='删除' class='bott' onclick='return confirm("确定删除吗？")'>
+                </form>
+            </span>
+            {% endif %}
         </li>
         {% endfor %}
     </ul>

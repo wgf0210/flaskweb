@@ -1,0 +1,13 @@
+{% extends 'father.html' %}
+{% block father_content %}
+<h3>编辑页面</h3>
+<form method='post'>
+    <p>电影名称：
+        <input type="text" name='title' autocapitalize="off" value="{{ e_movie.title }}" required>
+    </p>
+    <p>上映时间：
+        <input type="text" name='year' autocapitalize="off" value="{{ e_movie.year }}" required>
+    </p>
+    <input type="submit" value="修改" class='bott'>
+</form>
+{% endblock %}

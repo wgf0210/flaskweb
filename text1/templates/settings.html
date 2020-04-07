@@ -1,0 +1,9 @@
+{% extends 'father.html' %}
+{% block father_content %}
+<h3>设置页面</h3>
+<form action="" method='post'>
+名字：<input type="text" name='name' required value='{{ current_user.name }}'><br>
+<input type="submit" value="保存" class='bott'>
+</form>
+
+{% endblock %}
