@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>购物车1--传统</title>
+    <title>购物车1-传统</title>
     <!-- Bootstrap -->
     <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -36,7 +36,7 @@
         <div class="input-group">
             <input class="js-new-item form-control" type="text" placeholder="输入你想购买的物品">
             <span class="input-group-btn">
-                <button type="button" class="js-add btn btn-default">添加到购物车</button>
+                <button type="button" class="js-add btn btn-default">加入购物车</button>
             </span>
         </div>
         <!-- 购物车列表 -->
@@ -63,6 +63,12 @@
                 </div>
             </li>
         </ul>
+        <!-- 修改标题 -->
+        <div class="footer">
+            <hr>
+            <span>改变标题：</span>
+            <input type="text" class="js-change-title" value="我的购物车清单">
+        </div>
     </div>
 </body>
 <!-- jQuery -->
@@ -79,10 +85,21 @@
             $li = $('<li>').appendTo($ul)       /*使用$创建一个li标签,并追加到ul里*/
             $div = $('<div>').addClass('checkbox').appendTo($li)  /*创建div标签带有checkbox类，并追加到li里*/
             $label = $('<label>').appendTo($div)     /*创建label标签，并追加到div里*/
-            $('<input>').addClass('js-item').attr('type','checkbox').appendTo($label)  /*创建input标签带有类和属性，并追加到label里*/
+            $('<input>').addClass('js-item').attr('type','checkbox').appendTo($label).click(toggleRemove)  /*创建input标签带有类和属性，并追加到label里*/
             $label.append(value)    /*将值追加到label里*/
         }
-        $('.js-add').click(onAdd)         /*  给按钮添加效果  */
+        function toggleRemove(ev){    /*ev表示事件当前的对象*/
+        // 点击谁就要遍历他的顶层父元素，closest遍历；
+        // toggleClass反复添加，每次添加的不一样
+             $(ev.currentTarget).closest('li').toggleClass('remove')   /*通过currentTarget获取当前对象*/
+        }
+        function onChangeTitle(){
+            $('h2').text($('.js-change-title').val())  /*将h2里的字符改成.js-change-title类的值*/
+        }
+
+        $('.js-add').click(onAdd)         /*  给按钮添加点击事件效果  */
+        $('.js-item').click(toggleRemove)       /*选中来回切换*/
+        $('.js-change-title').keyup(onChangeTitle)       /*一旦输入都会触发这个事件*/
     })
 </script>
 </html>
