@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDoList倒计时</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container" id="app">
+        <h2>
+            <span>倒计时</span>
+            <button v-on:click='start()' :disabled='buttonState === "start"'>
+                <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+            </button>
+            <!-- disabled禁用 -->
+            <button v-on:click='pause()' :disabled='buttonState !== "start"'>
+                <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+            </button>
+            <button v-on:click='stop()' :disabled='buttonState !== "start" && buttonState !== "pause"'>
+                <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+            </button>
+        </h2>
+        <div class='well'>
+            <div class="dao-timer">
+                <h3>{{ workState }}中...</h3>
+                <h6>倒计总时长{{ time }}分钟</h6>
+                <span>{{ min }}</span>：<span>{{ sec }}</span>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/vue/2.6.11/vue.min.js"></script>
+<script>
+    // 在javascript里（ES6）,定义常量用的是const，之前是var
+    const WORK_STATES = {     /*工作状态*/
+        WORK:'工作',
+        REST:'休息'
+    }
+    const WORKING_TIME_LENGTH_IN_MINUTES = 25     /*工作时长用minute来表示*/
+    const RESTING_TIME_LENGTH_IN_MINUTES = 5      /*休息时长*/
+    const BUTTON_STATES = {
+        STARTED:'start',
+        STOPED:'stop',
+        PAUSED:'pause'
+    }
+    // 新建一个Vue对象
+    new Vue({      
+        el:'#app',    /*将这个Vue挂载到id为app的标签上*/
+        data:{        /*数据*/
+            time:25,
+            minute:WORKING_TIME_LENGTH_IN_MINUTES,
+            second:0,
+            workState:WORK_STATES.WORK,
+            timestamp:0,          /*时间戳*/
+            buttonState:BUTTON_STATES.STOPED,
+        },
+        computed:{
+            // 计算属性的 getter
+            min:function(){
+                if(this.minute<10){
+                    return '0'+this.minute;
+                }
+                return this.minute;
+            },
+            sec:function(){
+                if(this.second<10){
+                    return '0'+this.second;
+                }
+                return this.second;
+            }
+        },
+        methods:{     /*方法*/
+            // 开始
+            start:function(){
+                this.buttonState = BUTTON_STATES.STARTED
+                this._tick()
+                // 定时器,毫秒为单位
+                this.interval = setInterval(this._tick,1000);
+            },
+            // 暂停
+            pause:function(){
+                this.buttonState = BUTTON_STATES.PAUSED;
+                clearInterval(this.interval)      /*停止定时器*/
+
+            },
+            // 停止
+            stop:function(){
+                this.buttonState = BUTTON_STATES.STOPED;
+                clearInterval(this.interval)
+                this.workState = WORK_STATES.WORK;
+                this.minute = WORKING_TIME_LENGTH_IN_MINUTES;
+                this.second = 0;
+            },
+            _tick:function(){
+                // second为0，,减1
+                if(this.second !== 0){
+                    this.second--;
+                    return
+                }
+                // second为0，minute不为0，minute减1，second从0到59*/
+                if(this.minute !== 0){
+                    this.minute--;
+                    this.second = 59;
+                    return
+                }
+                // second为0，minute为0，切换状态，切换时间
+                // 运算符---判断条件?第一个结果:第二个结果(条件满足走第一个，否则走第二个)
+                this.workState = this.workState===WORK_STATES.WORK?WORK_STATES.REST:WORK_STATES.WORK
+                if(this.workState == WORK_STATES.WORK){   /*判断当前状态是否等于工作状态*/
+                    this.minute = WORKING_TIME_LENGTH_IN_MINUTES;
+                }else{
+                    this.time = 5;
+                    this.minute = RESTING_TIME_LENGTH_IN_MINUTES;
+                }
+            }
+        }
+    })
+</script>
+</html>
