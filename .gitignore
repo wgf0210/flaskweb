@@ -6,4 +6,3 @@ env
 .env
 *.db
 node_modules/
-text2.zip
