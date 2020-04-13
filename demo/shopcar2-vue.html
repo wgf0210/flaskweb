@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>购物车2-vue</title>
     <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/vue/2.6.11/vue.min.js"></script>
+    
     <style>
         .container{
             width: 40%;
@@ -31,33 +31,24 @@
 <body>
     <div class="container" id='app'>
         <h2>{{ title }}</h2>
-        <div class="input-group">
-            <!-- v-on:keyup.enter绑定输入事件 -->
-            <input v-model='newItem' v-on:keyup.enter='showItem' class="form-control" type="text" placeholder="输入你想购买的物品">
-            <span class="input-group-btn">
-                <!-- v-on:click绑定click事件 -->
-                <button v-on:click='addItem' type="button" class="btn btn-default">加入购物车</button>
-            </span>
-        </div>
-        <ul> 
-            <!-- <li v-for='item in items'>{{ item }}</li>     v-for循环遍历 -->
-            <li v-for='item in items' v-bind:class="{'remove':item.checked}"> <!--v-for循环遍历,v-bind:class绑定类事件，v-bind数据和元素属性-->
-                <div class="checkbox">
-                    <label for="">
-                        <input v-model='item.checked' type="checkbox">&nbsp;{{item.text}}
-                    </label>
-                </div>
-            </li> 
-        </ul>
+        <add-item-compoent></add-item-compoent>
+        <items-compoent></items-compoent>
         <!-- 修改标题 -->
         <div class="footer">
             <hr>
             <span>改变标题：</span>
-            <input v-model='title'>   <!--v-model绑定文字（双向数据绑定）-->
+            <change-title-compoent></change-title-compoent>
         </div>
+        <hr>
+        <div>{{ num }}²是<span v-square='num'></span></div>
     </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
+    // 自定义指令
+    Vue.directive('square',function(el,binding){
+        el.innerHTML = Math.pow(binding.value,2)
+    })
     var data = {          /*json格式*/
         // items:['花西子','MAC','阿玛尼'],    /*数组格式*/
         items:[
@@ -66,13 +57,38 @@
             {text:'阿玛尼',checked:true},
         ],
         title:'我的购物车清单',
-        newItem:''         /*定义一个新的对象*/
+        newItem:'',         /*定义一个新的对象*/
+        num:10
     }
-    // 实例化一个vue对象
-    new Vue({
-        el:'#app',   /*在id为app的标签上挂载vue对象*/
-        data:data,    /*绑定数据*/
-        methods:{       /*js写在里面*/
+    // 创建组件--列表
+    var ItemsComponent = Vue.extend({
+        data:function(){
+            return data;
+        },
+        template:
+        '<ul>'+
+            '<li v-for="item in items" v-bind:class="{remove:item.checked}">'+
+                '<div class="checkbox">'+
+                    '<label for="">'+
+                        '<input v-model="item.checked" type="checkbox">&nbsp;{{item.text}}'+
+                    '</label>'+
+                '</div>'+
+            '</li>'+ 
+        '</ul>'
+    });
+    // 创建组件--改变标题
+    var Changetitlecompoent = Vue.extend({
+        data:function(){
+            return data;
+        },
+        template:"<input v-model='title'>"
+    });
+    // 创建组件--加购物车
+    var Additcompoent = Vue.extend({
+        data:function(){
+            return data;
+        },
+        methods:{
             addItem:function(){       /*格式-----函数名:函数体*/
                 var text;   /*创建一个新的text*/
                 text = this.newItem.trim();    /*当前新的标签里的内容去掉两边空格*/
@@ -84,10 +100,24 @@
                 };
                 this.newItem = ''    /*添加完后，清空input标签*/
             },
-            showItem:function(){
-                console.log('ssssss')
-            }
-        }
+        },
+        template:
+        '<div class="input-group">'+
+            '<input v-model="newItem" v-on:keyup.enter="showItem" class="form-control" type="text" placeholder="输入你想购买的物品">'+
+            '<span class="input-group-btn">'+
+                '<button v-on:click="addItem" type="button" class="btn btn-default">加入购物车</button>'+
+            '</span>'+
+        '</div>'
+    });
+    // 注册组件
+    Vue.component('items-compoent',ItemsComponent);
+    Vue.component('change-title-compoent',Changetitlecompoent);
+    Vue.component('add-item-compoent',Additcompoent);
+
+    // 实例化一个vue对象
+    new Vue({
+        el:'#app',   /*在id为app的标签上挂载vue对象*/
+        data:data,    /*绑定数据*/
     })
 </script>
 </html>
