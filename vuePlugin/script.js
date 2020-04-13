@@ -6,6 +6,6 @@ Vue.use(VueMathPlugin)
 new Vue({
     el:'#app',
     data:{
-        num:20
+        num:30
     }
 })

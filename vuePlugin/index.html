@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>自定义指令</title>
 </head>
 <body>
     <div id="app">
-        <div>{{ num }}²是<span v-square='num'></span></div>
-        <hr>
-        <div>{{ num }}开方是<span v-sqrt='num'></span></div>
+        <div>
+            {{ num }}²是<span v-square='num'></span><hr>
+            {{ num }}开方是<span v-sqrt='num'></span><hr>
+            sin{{ num }}值是<span v-sin='num'></span><hr>
+            cos{{ num }}值是<span v-cos='num'></span><hr>
+            tan{{ num }}值是<span v-tan='num'></span><hr>
+        </div>
     </div>
     <script src="main.js"></script>
 </body>

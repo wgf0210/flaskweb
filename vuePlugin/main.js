@@ -1,4 +1,31 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    install: function install(Vue) {
+        // 自定义指令
+        Vue.directive('square', function (el, binding) {
+            el.innerHTML = Math.pow(binding.value, 2);
+        });
+        Vue.directive('sqrt', function (el, binding) {
+            el.innerHTML = Math.sqrt(binding.value);
+        });
+        Vue.directive('sin', function (el, binding) {
+            el.innerHTML = Math.sin(binding.value);
+        });
+        Vue.directive('cos', function (el, binding) {
+            el.innerHTML = Math.cos(binding.value);
+        });
+        Vue.directive('tan', function (el, binding) {
+            el.innerHTML = Math.tan(binding.value);
+        });
+    }
+};
+
+},{}],2:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -184,7 +211,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 (function (setImmediate,clearImmediate){
 var nextTick = require('process/browser.js').nextTick;
 var apply = Function.prototype.apply;
@@ -263,25 +290,7 @@ exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate :
   delete immediateIds[id];
 };
 }).call(this,require("timers").setImmediate,require("timers").clearImmediate)
-},{"process/browser.js":1,"timers":2}],3:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = {
-    install: function install(Vue) {
-        // 自定义指令
-        Vue.directive('square', function (el, binding) {
-            el.innerHTML = Math.pow(binding.value, 2);
-        });
-        Vue.directive('sqrt', function (el, binding) {
-            el.innerHTML = Math.sqrt(binding.value);
-        });
-    }
-};
-
-},{}],4:[function(require,module,exports){
+},{"process/browser.js":2,"timers":3}],4:[function(require,module,exports){
 (function (global,setImmediate){
 /*!
  * Vue.js v2.6.11
@@ -12250,7 +12259,7 @@ exports.default = {
 }));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("timers").setImmediate)
-},{"timers":2}],5:[function(require,module,exports){
+},{"timers":3}],5:[function(require,module,exports){
 'use strict';
 
 var _vue = require('vue/dist/vue.js');
@@ -12270,8 +12279,8 @@ _vue2.default.use(_VueMathPlugin2.default);
 new _vue2.default({
     el: '#app',
     data: {
-        num: 20
+        num: 30
     }
 });
 
-},{"./VueMathPlugin":3,"vue/dist/vue.js":4}]},{},[5]);
+},{"./VueMathPlugin":1,"vue/dist/vue.js":4}]},{},[5]);
