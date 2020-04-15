@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     <div class="app-head">
       <div class="app-head-inner">
         <img src="./assets/logo.png" alt="">
@@ -30,6 +30,12 @@ export default {
 
 <style scoped>
 /* layout样式 */
+.body{
+  background: #f0f2f5;
+  font-size: 15px;
+  color: #444;
+  font-family: 幼圆;
+}
 .app-head{
   background: #363636;
   color:#b2b2b2;
@@ -69,72 +75,43 @@ export default {
   margin: 0 auto;
 }
 /* reset重置样式 */
-html {
-overflow-x:auto;
-overflow-y:scroll;
+html,body,div,span,applet,object,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video {
+	margin:0;
+	padding:0;
+	border:0;
+	font-size:100%;
+	font:inherit;
+	font-weight:normal;
+	vertical-align:baseline;
 }
-body, dl, dt, dd, ul, ol, li, pre, form, fieldset, input, p, blockquote, th, td {
-font-weight:400;
-margin:0;
-padding:0;
+ol,ul,li {
+	list-style:none;
 }
-h1, h2, h3, h4, h4, h5 {
-margin:0;
-padding:0;
+blockquote,q {
+	quotes:none;
 }
-body {
-background-color:#FFFFFF;
-color:#666666;
-font-family:Helvetica,Arial,sans-serif;
-font-size:12px;
-padding:0 10px;
-text-align:left;
-}
-select {
-font-size:12px;
+blockquote:before,blockquote:after,q:before,q:after {
+	content:'';
+	content:none;
 }
 table {
-border-collapse:collapse;
+	border-collapse:collapse;
+	border-spacing:0;
 }
-fieldset, img {
-border:0 none;
+th,td {
+	vertical-align:middle;
 }
-fieldset {
-margin:0;
-padding:0;
+/* custom */
+a {
+	outline:none;
+	color:#16418a;
+	text-decoration:none;
+	-webkit-backface-visibility:hidden;
 }
-fieldset p {
-margin:0;
-padding:0 0 0 8px;
+a:focus {
+	outline:none;
 }
-legend {
-display:none;
-}
-address, caption, em, strong, th, i {
-font-style:normal;
-font-weight:400;
-}
-table caption {
-margin-left:-1px;
-}
-hr {
-border-bottom:1px solid #FFFFFF;
-border-top:1px solid #E4E4E4;
-border-width:1px 0;
-clear:both;
-height:2px;
-margin:5px 0;
-overflow:hidden;
-}
-ol, ul {
-list-style-image:none;
-list-style-position:outside;
-list-style-type:none;
-}
-caption, th {
-text-align:left;
-}
-q:before, q:after, blockquote:before, blockquote:after {
-content:””;
+input:focus,select:focus,textarea:focus {
+	outline:-webkit-focus-ring-color auto 0;
 }
 </style>
