@@ -2,7 +2,7 @@
   <div class="body">
     <div class="app-head">
       <div class="app-head-inner">
-        <img src="./assets/logo.png" alt="">
+        <img src="./assets/logo.png" alt=""><span class="app-titile">3C商品商城</span>
         <div class="head-nav">
           <ul class="nav-list">
             <li>登录</li>
@@ -73,6 +73,11 @@ export default {
 .app-content{
   width: 1200px;
   margin: 0 auto;
+}
+.app-titile{
+  font-size: 30px;
+  color: white;
+  font-weight: bolder;
 }
 /* reset重置样式 */
 html,body,div,span,applet,object,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video {
