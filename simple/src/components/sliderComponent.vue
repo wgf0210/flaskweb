@@ -3,9 +3,10 @@
         <!-- 四张轮播图 -->
         <div v-show="nowIndex===index" class="slider-item item1" v-bind:class="['item'+[index+1]]" v-for="(item,index) in sliderimglist" v-bind:key="index">
             <a href="">
-                <img v-bind:src="item" alt="" style="width:900px;height:500px">
+                <img v-bind:src="item.imgurl" alt="" style="width:900px;height:500px">
             </a>
         </div>
+        <h2 class="slider-title">{{ sliderimglist[nowIndex].title }}</h2>
         <!-- 上一张，下一张： 写成一个button，避免跳转 -->
         <a v-on:click="preHander" href="javascript:viod(0)" class="btn pre-btn">&lt;</a>
         <a v-on:click="autoPlay" href="javascript:viod(0)" class="btn next-btn">&gt;</a>
@@ -22,10 +23,22 @@ export default {
         return {
             nowIndex:0,
             sliderimglist:[
-                require('../assets/pic1.jpg'),
-                require('../assets/pic2.jpg'),
-                require('../assets/pic3.jpg'),
-                require('../assets/pic4.jpg')
+                {
+                    imgurl:require('../assets/pic1.jpg'),
+                    title:'第一张图'
+                },
+                {
+                    imgurl:require('../assets/pic2.jpg'),
+                    title:'第二张图'
+                },
+                {
+                    imgurl:require('../assets/pic3.jpg'),
+                    title:'第三张图'
+                },
+                {
+                    imgurl:require('../assets/pic4.jpg'),
+                    title:'第四张图'
+                },
             ]
         }
     },
@@ -107,6 +120,7 @@ export default {
     float: left;
     margin: 0 10px;
     opacity: 0.6;
+    cursor: pointer;
 }
 .btn{
     display: inline-block;
@@ -129,5 +143,19 @@ export default {
 }
 .next-btn{
     right: 10px;
+}
+.slider-title{
+    background: #000;
+    color: white;
+    height: 30px;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 400;
+    font-size: 20px;
+    text-align: center;
+    line-height: 30px;
+    opacity: 0.6;
+    padding: 8px;
 }
 </style>

@@ -38,7 +38,7 @@
         <div class="index-border-item" v-for="item in borderlist">
           <div class="index-border-item-inner">
             <h2>{{ item.title }}</h2>
-            <p>{{ item.description }}/p>
+            <p>{{ item.description }}</p>
             <div class="index-border-button">立即购买</div>
           </div>
         </div>
