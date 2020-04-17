@@ -1,45 +1,64 @@
 <template>
     <div class="slider-wrapper" @mouseover="clearInv" @mouseout="runInv">
         <!-- 四张轮播图 -->
-        <div class="slider-item item1">1</div>
-        <div class="slider-item item2">0</div>
-        <div class="slider-item item3">3</div>
-        <div class="slider-item item4">4</div>
+        <div v-show="nowIndex===index" class="slider-item item1" v-bind:class="['item'+[index+1]]" v-for="(item,index) in sliderimglist" v-bind:key="index">
+            <a href="">
+                <img v-bind:src="item" alt="" style="width:900px;height:500px">
+            </a>
+        </div>
+        <!-- 上一张，下一张： 写成一个button，避免跳转 -->
+        <a v-on:click="preHander" href="javascript:viod(0)" class="btn pre-btn">&lt;</a>
+        <a v-on:click="autoPlay" href="javascript:viod(0)" class="btn next-btn">&gt;</a>
         <!-- 下方的原点 -->
         <ul class="slider-dots">
-            <li>&lt;</li>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>&gt;</li>
+            <li v-on:click="clickDot(index)" v-for="(item,index) in sliderimglist" v-bind:key="index">{{ index+1 }}</li>
         </ul>
     </div>
 </template>
 
 <script>
 export default {
-    props:{
-        inv:{
-            type:Number,
-            default:1000   /* 1000毫秒 */
-        }
-    },
     data() {
         return {
-            
+            nowIndex:0,
+            sliderimglist:[
+                require('../assets/pic1.jpg'),
+                require('../assets/pic2.jpg'),
+                require('../assets/pic3.jpg'),
+                require('../assets/pic4.jpg')
+            ]
         }
     },
     methods: {
+        preHander(){
+            this.nowIndex--;
+            if(this.nowIndex<0){
+                this.nowIndex = 3
+            }
+        },
+        // nextHander(){
+        //     this.autoPlay
+        // },
+        clickDot(index){
+            this.nowIndex = index
+        },
+        autoPlay(){
+            this.nowIndex++;
+            if(this.nowIndex>3){
+                this.nowIndex = 0
+            }
+        },
         runInv(){
-            setInterval(()=>{
-
-            },this.inv)
+            this.invId = setInterval(this.autoPlay,1000)
         },
         clearInv(){
-
+            clearInterval(this.invId)
         }
     },
+    created(){
+        console.log('调用')
+        this.runInv()
+    }
 }
 </script>
 
@@ -75,17 +94,40 @@ export default {
     right: 20px;
     bottom: 20px;
     list-style: none;
+    z-index: 200;
 }
 .slider-dots li{
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background: #000;
+    background: red;
     color: white;
     text-align: center;
     line-height: 15px;
     float: left;
     margin: 0 10px;
     opacity: 0.6;
+}
+.btn{
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    color: white;
+    background: #000;
+    font-size: 40px;
+    text-align: center;
+    line-height: 50px;
+    position: absolute;
+    top: 50%;
+    margin-top: -25px;
+    z-index: 300;
+    text-decoration: none;
+    opacity: 0.6;
+}
+.pre-btn{
+    left:10px
+}
+.next-btn{
+    right: 10px;
 }
 </style>
