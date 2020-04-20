@@ -3,8 +3,6 @@ from flask import Flask,render_template,render_template,request,flash,url_for,re
 from flask_login import login_user,logout_user,login_required,current_user
 from text1.models import *
 
-
-
 @app.route('/',methods=['GET','POST'])
 # @app.route('/index/')
 def index():
